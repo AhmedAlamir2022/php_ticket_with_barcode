@@ -1,0 +1,82 @@
+<?php include ('header.php'); ?>
+
+        <div class="page-title">
+            <div class="title_left">
+                <h3>
+					<small>Home /</small> Tickets
+                </h3>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+ 
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+							<a href="ticket_print_lost.php" target="_blank" style="background:none;">
+							<button class="btn btn-danger pull-right"><i class="fa fa-print"></i> Print Tickets List</button>
+							</a>
+							<br />
+							<br />
+                    <div class="x_title">
+                        <h2><i class="fa fa-ticket"></i> Tickets List</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li>
+							<a href="add_ticket.php" style="background:none;">
+							<button class="btn btn-primary"><i class="fa fa-plus"></i> Add Ticket</button>
+							</a>
+							</li>
+                            
+                        </ul>
+                        <div class="clearfix"></div>
+							<ul class="nav nav-pills">
+								<li role="presentation"><a href="tickets.php">My Tickets</a></li>
+								<li role="presentation"><a href="all_tickets.php">All</a></li>
+								<li role="presentation" class="active"><a href="lost_tickets.php">Pending Tickets</a></li>
+							</ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <!-- content starts here -->
+
+						<div class="table-responsive">
+							<table cellpadding="0" cellspacing="0" border="0" class="table table-striped table-bordered" id="example">
+								
+							<thead>
+								<tr>
+									<th>Ticket Barcode</th>
+									<th>Details</th>
+									<th>Remarks</th>
+								</tr>
+							</thead>
+							<tbody>
+							
+							<?php
+							$result= mysqli_query($con,"select * from tickets where status1 = '1'  ") or die (mysql_error());
+							while ($row= mysqli_fetch_array ($result) ){
+							?>
+							<tr>
+								<td><?php echo "<img src='../bracode/userQr/".$row['ticket_image']."'/>";?></td>
+								<td><a class="btn btn-primary" for="ViewAdmin" href="view_ticket.php<?php echo '?ticket_id='.$row['ticket_id']; ?>">
+										<i class="fa fa-search"></i>
+									</a></td>
+								<td><a href="add_ticket1.php<?php echo '?ticket_id='.$row['ticket_id']; ?>" style=" background:none;">
+							<button class="btn btn-primary"> Accept</button>
+							</a>
+							<a href="delete_ticket.php<?php echo '?ticket_id='.$row['ticket_id']; ?>" style=" background:none;">
+							<button class="btn btn-danger"> Delete</button>
+							</a>
+						</td>
+						
+							</tr>
+							<?php } ?>
+							</tbody>
+							</table>
+						</div>
+						
+                        <!-- content ends here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<?php include ('footer.php'); ?>
